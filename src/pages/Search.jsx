@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import Loading from './Loading';
+import Header from '../components/Header';
 
 class Search extends Component {
   // constructor() {
@@ -11,6 +11,7 @@ class Search extends Component {
   render() {
     return (
       <div data-testid="page-search">
+        <Header />
         <p>Search</p>
       </div>
     );
