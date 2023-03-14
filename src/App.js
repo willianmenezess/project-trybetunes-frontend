@@ -9,12 +9,19 @@ import Edit from './pages/Edit';
 import NotFound from './pages/NotFound';
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+
+    };
+  }
+
   render() {
     return (
       <main>
-        <p>TrybeTunes</p>
+        <h3>TrybeTunes</h3>
         <Switch>
-          <Route exact path="/" component={ Login } />
+          <Route exact path="/" render={ (props) => <Login { ...props } /> } />
           <Route exact path="/search" component={ Search } />
           <Route exact path="/album/:id" component={ Album } />
           <Route exact path="/favorites" component={ Favorites } />
