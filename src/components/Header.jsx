@@ -35,7 +35,7 @@ class Header extends Component {
         <span> </span>
         <Link to="/profile" data-testid="link-to-profile">Profile</Link>
         { isLoading ? <Loading />
-          : (<p data-testid="header-user-name">{user.name}</p>
+          : (<p data-testid="header-user-name">{`Olá, ${user.name}`}</p>
           )}
       </header>
     );
