@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loading from '../pages/Loading';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class MusicCard extends Component {
   constructor() {
@@ -12,16 +12,34 @@ class MusicCard extends Component {
     };
   }
 
-  handleMusic = async (music) => {
-    // console.log(music);
-    this.setState((prevState) => ({
+  componentDidMount() {
+    this.getFavSongsLocalStorage();
+  }
+
+  getFavSongsLocalStorage = async () => {
+    this.setState({
       addMusic: true,
-      favoriteSongs: [...prevState.favoriteSongs, music],
-    }));
-    await addSong(music);
+    });
+    const favSongs = await getFavoriteSongs();
     this.setState({
       addMusic: false,
+      favoriteSongs: favSongs,
     });
+  };
+
+  handleMusic = async (music) => {
+    // console.log(music);
+    const { favoriteSongs } = this.state;
+    if ((favoriteSongs.some((item) => item === music)) === false) {
+      this.setState({
+        addMusic: true,
+      });
+      await addSong(music);
+      this.setState((prevState) => ({
+        addMusic: false,
+        favoriteSongs: [...prevState.favoriteSongs, music],
+      }));
+    }
   };
 
   render() {
@@ -55,7 +73,9 @@ class MusicCard extends Component {
                         id="favorite"
                         type="checkbox"
                         name="favorite"
-                        checked={ favoriteSongs.some((item) => item === music) }
+                        checked={ favoriteSongs.some((item) => (
+                          item.trackId === music.trackId
+                        )) }
                         onChange={ () => this.handleMusic(music) }
                       />
                     </label>
