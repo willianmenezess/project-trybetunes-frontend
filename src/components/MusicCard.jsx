@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loading from '../pages/Loading';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 class MusicCard extends Component {
   constructor() {
@@ -30,7 +30,7 @@ class MusicCard extends Component {
   handleMusic = async (music) => {
     // console.log(music);
     const { favoriteSongs } = this.state;
-    if ((favoriteSongs.some((item) => item === music)) === false) {
+    if ((favoriteSongs.some((item) => item.trackId === music.trackId)) === false) {
       this.setState({
         addMusic: true,
       });
@@ -39,6 +39,18 @@ class MusicCard extends Component {
         addMusic: false,
         favoriteSongs: [...prevState.favoriteSongs, music],
       }));
+    } else {
+      this.setState({
+        addMusic: true,
+      });
+      await removeSong(music);
+      const newFavSongs = favoriteSongs.filter((track) => (
+        track.trackId !== music.trackId
+      ));
+      this.setState({
+        addMusic: false,
+        favoriteSongs: newFavSongs,
+      });
     }
   };
 
