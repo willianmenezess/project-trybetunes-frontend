@@ -55,7 +55,7 @@ class MusicCard extends Component {
   };
 
   render() {
-    const { musics } = this.props;
+    const { musics, handleClick } = this.props;
     const { addMusic, favoriteSongs } = this.state;
     return (
       <div>
@@ -89,6 +89,7 @@ class MusicCard extends Component {
                           item.trackId === music.trackId
                         )) }
                         onChange={ () => this.handleMusic(music) }
+                        onClick={ handleClick }
                       />
                     </label>
                   </div>
@@ -107,6 +108,7 @@ MusicCard.propTypes = {
       previewUrl: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default MusicCard;
