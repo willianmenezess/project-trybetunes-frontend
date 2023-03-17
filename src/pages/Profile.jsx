@@ -55,7 +55,7 @@ class Profile extends Component {
                 <span>{ email }</span>
               </p>
               <p>
-                Description:
+                Descrição:
                 <span>{ description }</span>
               </p>
 
