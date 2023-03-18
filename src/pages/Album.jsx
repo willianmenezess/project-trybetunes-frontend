@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Loading from './Loading';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 
@@ -8,6 +9,7 @@ class Album extends Component {
   constructor() {
     super();
     this.state = {
+      isLoading: true,
       musics: [],
       albumInfo: {},
     };
@@ -26,20 +28,25 @@ class Album extends Component {
     // console.log(albumMusics);
     // console.log(tracks);
     this.setState({
+      isLoading: false,
       albumInfo: albumMusics[0],
       musics: tracks,
     });
   };
 
   render() {
-    const { albumInfo, musics } = this.state;
+    const { albumInfo, musics, isLoading } = this.state;
     const { artistName, collectionName } = albumInfo;
     return (
       <div data-testid="page-album">
         <Header />
-        <h4 data-testid="artist-name">{artistName}</h4>
-        <p data-testid="album-name">{`${collectionName} - ${artistName}`}</p>
-        <MusicCard musics={ musics } />
+        { isLoading ? <Loading />
+          : (
+            <section>
+              <h4 data-testid="artist-name">{artistName}</h4>
+              <p data-testid="album-name">{`${collectionName} - ${artistName}`}</p>
+              <MusicCard musics={ musics } />
+            </section>)}
       </div>
     );
   }

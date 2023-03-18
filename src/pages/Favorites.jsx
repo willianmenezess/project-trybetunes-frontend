@@ -10,7 +10,7 @@ class Favorites extends Component {
     this.state = {
       isLoading: true,
       favoriteSongs: [],
-      count: 0,
+      count: 1,
     };
   }
 
@@ -64,5 +64,3 @@ class Favorites extends Component {
 }
 
 export default Favorites;
-
-// teste
