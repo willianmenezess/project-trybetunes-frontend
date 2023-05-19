@@ -62,22 +62,28 @@ class MusicCard extends Component {
         { addMusic ? <Loading />
           : (
 
-            <div>
+            <div className="flex flex-wrap justify-center w-full">
               {
                 musics.map((music) => (
-                  <div key={ music.trackName }>
-                    <p>{ music.trackName }</p>
-                    <audio
-                      data-testid="audio-component"
-                      src={ music.previewUrl }
-                      controls
-                    >
-                      <track kind="captions" />
-                      O seu navegador não suporta o elemento
-                      {' '}
-                      {' '}
-                      <code>audio</code>
-                    </audio>
+                  <div
+                    key={ music.trackName }
+                    className="flex items-center content-center w-full"
+                  >
+                    <div className="w-4/5 p-2">
+                      <p>{ music.trackName }</p>
+                      <audio
+                        data-testid="audio-component"
+                        src={ music.previewUrl }
+                        controls
+                        className="w-full"
+                      >
+                        <track kind="captions" />
+                        O seu navegador não suporta o elemento
+                        {' '}
+                        {' '}
+                        <code>audio</code>
+                      </audio>
+                    </div>
                     <label htmlFor="favorite">
                       Favorita
                       <input
@@ -90,6 +96,7 @@ class MusicCard extends Component {
                         )) }
                         onChange={ () => this.handleMusic(music) }
                         onClick={ handleClick }
+                        className="accent-green-600"
                       />
                     </label>
                   </div>

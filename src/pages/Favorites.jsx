@@ -46,12 +46,15 @@ class Favorites extends Component {
   render() {
     const { isLoading, favoriteSongs } = this.state;
     return (
-      <div data-testid="page-favorites">
-        <Header />
-        { isLoading ? <Loading />
+      <div
+        data-testid="page-favorites"
+        className="flex font-bold text-white bg-neutral-900"
+      >
+        <Header className="min-h-screen" />
+        {isLoading ? <Loading className="text-center" />
           : (
-            <section>
-              <h4>Favorites Songs</h4>
+            <section className="w-full">
+              <h4 className="text-center text-2xl">Favorites Songs</h4>
               <MusicCard
                 handleClick={ this.handleClick }
                 musics={ favoriteSongs }
